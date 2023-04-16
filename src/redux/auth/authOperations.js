@@ -1,86 +1,82 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
+import { authSelectors } from './authSelectors';
+import { slimMomAxios, token } from '../slimMomAxios';
+import {Notify} from "notiflix";
 
-
-axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = ``;
-  },
-};
-const headers = {
-  'Content-type': 'application/json',
-};
 const register = createAsyncThunk(
-  '/auth/register',
+  'auth/register',
   async (credential, thunkAPI) => {
-    try {
-      const { data } = await axios.post('/users/signup', credential);
-      toast.success('Реєстрація пройшла успішно!', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    const { email, password, username } = credential;
 
-      token.set(data.token);
-      return data;
-    } catch (error) {
-      toast.error('Ми не можемо успішно завершити вашу реєстрацію!', {
-        position: toast.POSITION.TOP_CENTER,
+    try {
+      await slimMomAxios.post('/auth/register', { email, password, username });
+      const { data } = await slimMomAxios.post('/auth/login', {
+        email,
+        password,
       });
-      return thunkAPI.rejectWithValue(error);
+      token.set(data.accessToken);
+      if (!thunkAPI.getState().dailyRate.dataUser) {
+        return data;
+      }
+
+      // Check if user already submit form
+      const dataUser = thunkAPI.getState().dailyRate.dataUser;
+      const userID = data.user.id;
+      if (thunkAPI.getState().dailyRate.dataUser) {
+        await slimMomAxios.post(`/daily-rate/${userID}`, dataUser);
+        return data;
+      }
+    } catch (e) {
+      Notify.failure(e.message);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-const logIn = createAsyncThunk('/auth/login', async (credential, thunkAPI) => {
+const logIn = createAsyncThunk('auth/login', async (credential, thunkAPI) => {
+  const { email, password } = credential;
+
   try {
-    const { data } = await axios.post('/users/login', credential);
-    token.set(data.token);
+    const { data } = await slimMomAxios.post('/auth/login', {
+      email,
+      password,
+    });
+    token.set(data.accessToken);
+
     return data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+  } catch (e) {
+    Notify.failure(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
-const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
+const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.get('/users/logout');
+    await slimMomAxios.post('/auth/logout');
     token.unset();
-  } catch (error) {
-    return thunkAPI.rejectWithValue();
+  } catch (e) {
+    Notify.failure(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
-const updateAvatar = createAsyncThunk(
-  '/auth/update',
-  async (credential, thunkAPI) => {
-    try {
-      const { data } = await axios.patch('/users/avatars', credential, {
-        headers: headers,
-      });
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const refreshToken = authSelectors.refreshToken(thunkAPI.getState());
+  const sid = authSelectors.sid(thunkAPI.getState());
 
-const refreshUser = createAsyncThunk('auth/current', async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  const persistToken = state.auth.token;
-  if (persistToken === null) {
-    return thunkAPI.rejectWithValue();
-  }
-  token.set(persistToken);
+  if (refreshToken === null) return thunkAPI.rejectWithValue(`No token`);
+  token.set(refreshToken);
+
   try {
-    const { data } = await axios.get('/users/current');
-    return data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    const { data: refreshData } = await slimMomAxios.post('/auth/refresh', {
+      sid,
+    });
+    token.set(refreshData.newAccessToken);
+    const { data: userData } = await slimMomAxios.get('/user');
+    return { refreshData, userData };
+  } catch (e) {
+    Notify.failure(e.message);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
@@ -88,8 +84,7 @@ const authOperations = {
   register,
   logIn,
   logOut,
-  updateAvatar,
-  refreshUser,
+  refresh,
 };
 
 export default authOperations;

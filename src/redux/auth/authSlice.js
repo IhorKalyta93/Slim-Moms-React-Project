@@ -1,101 +1,124 @@
 import { createSlice } from '@reduxjs/toolkit';
 import authOperations from './authOperations';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 
 const initialState = {
-  user: {
-    name: '',
-    email: '',
-    avatarURL: '',
-    height: null,
-    age: null,
-    currentWeight: null,
-    desiredWeight: null,
-    bloodType: null,
-    createdAt: '',
-  },
-  token: null,
+  user: { username: null, email: null, id: null },
+  accessToken: null,
+  refreshToken: null,
+  sid: null,
   isLoggedIn: false,
-  isCurrentUserRefresh: false,
-  loaderShow: false,
+  loading: {
+    register: false,
+    logIn: false,
+    registration: false,
+    refresh: false,
+  },
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {
-    [authOperations.register.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-      state.loaderShow = false;
-    },
-    [authOperations.register.pending](state) {
-      state.loaderShow = true;
-    },
-    [authOperations.register.rejected](state) {
-      state.loaderShow = false;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(authOperations.register.pending, state => {
+        state.loading.registration = true;
+      })
+      .addCase(authOperations.register.rejected, state => {
+        state.loading.registration = false;
+      })
+      .addCase(authOperations.register.fulfilled, (state, { payload }) => {
+        state.user.username = payload['user']['username'];
+        state.user.email = payload['user']['email'];
+        state.user.id = payload['user']['id'];
 
-    [authOperations.logIn.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-      state.loaderShow = false;
-    },
-    [authOperations.logIn.pending](state) {
-      state.loaderShow = true;
-    },
-    [authOperations.logIn.rejected](state) {
-      state.loaderShow = false;
-    },
+        state.accessToken = payload['accessToken'];
+        state.refreshToken = payload['refreshToken'];
+        state.sid = payload['sid'];
 
-    [authOperations.logOut.fulfilled](state) {
-      state.user = {
-        name: '',
-        email: '',
-        avatarURL: '',
-        height: null,
-        age: null,
-        currentWeight: null,
-        desiredWeight: null,
-        bloodType: null,
-      };
-      state.token = null;
-      state.isLoggedIn = false;
-      state.loaderShow = false;
-      state.isCurrentUserRefresh = false;
-    },
+        state.isLoggedIn = true;
+        state.loading.registration = false;
+      })
 
-    [authOperations.logOut.pending](state) {
-      state.loaderShow = true;
-    },
-    [authOperations.logOut.rejected](state) {
-      state.loaderShow = false;
-    },
+      .addCase(authOperations.logIn.pending, state => {
+        state.loading.logIn = true;
+      })
+      .addCase(authOperations.logIn.fulfilled, (state, { payload }) => {
+        state.user.username = payload['user']['username'];
+        state.user.email = payload['user']['email'];
+        state.user.id = payload['user']['id'];
 
-    [authOperations.updateAvatar.fulfilled](state, action) {
-      state.user = action.payload;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-    },
+        state.accessToken = payload['accessToken'];
+        state.refreshToken = payload['refreshToken'];
+        state.sid = payload['sid'];
 
-    [authOperations.refreshUser.pending](state) {
-      state.isCurrentUserRefresh = true;
-      state.loaderShow = true;
-    },
+        state.isLoggedIn = true;
+        state.loading.logIn = false;
+      })
+      .addCase(authOperations.logIn.rejected, state => {
+        state.loading.logIn = false;
+      })
 
-    [authOperations.refreshUser.fulfilled](state, action) {
-      state.isCurrentUserRefresh = false;
-      state.user = action.payload;
-      state.isLoggedIn = true;
-      state.loaderShow = false;
-    },
+      .addCase(authOperations.logOut.pending, state => {
+        state.loading.logOut = true;
+      })
+      .addCase(authOperations.logOut.fulfilled, state => {
+        state.user.username = initialState.user.username;
+        state.user.email = initialState.user.email;
+        state.user.id = initialState.user.id;
 
-    [authOperations.refreshUser.rejected](state, action) {
-      state.isCurrentUserRefresh = false;
-      state.loaderShow = false;
-    },
+        state.accessToken = initialState.accessToken;
+        state.refreshToken = initialState.refreshToken;
+        state.sid = initialState.sid;
+
+        state.isLoggedIn = initialState.isLoggedIn;
+        state.loading.logOut = false;
+      })
+      .addCase(authOperations.logOut.rejected, state => {
+        state.loading.logOut = false;
+      })
+
+      .addCase(authOperations.refresh.pending, state => {
+        state.loading.refresh = true;
+        state.accessToken = null;
+      })
+      .addCase(authOperations.refresh.fulfilled, (state, { payload }) => {
+        state.accessToken = payload.refreshData['newAccessToken'];
+        state.refreshToken = payload.refreshData['newRefreshToken'];
+        state.sid = payload.refreshData['sid'];
+
+        state.user.username = payload.userData['username'];
+        state.user.email = payload.userData['email'];
+        state.user.id = payload.userData['id'];
+
+        state.isLoggedIn = true;
+        state.isFetchingCurrentUser = false;
+        state.loading.refresh = false;
+      })
+      .addCase(authOperations.refresh.rejected, state => {
+        state.accessToken = initialState.accessToken;
+        state.refreshToken = initialState.refreshToken;
+        state.sid = initialState.sid;
+
+        state.user.username = initialState.user.username;
+        state.user.email = initialState.user.email;
+        state.user.id = initialState.user.id;
+
+        state.isLoggedIn = initialState.isLoggedIn;
+        state.loading.refresh = false;
+      });
   },
 });
 
-export default authSlice.reducer;
+const persistConfig = {
+  key: 'watermelon/slimMom',
+  storage,
+  // whitelist: ['token'],
+  blacklist: ['loading'],
+};
+
+export const persistedAuthReducer = persistReducer(
+  persistConfig,
+  authSlice.reducer
+);
