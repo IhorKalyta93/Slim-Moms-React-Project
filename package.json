@@ -1,7 +1,7 @@
 {
   "name": "slim_moms_react_project",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://ihorkalyta93.github.io/slim_moms_react_project/",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.12",
