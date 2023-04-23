@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import smile from '../../assets/notFound/smile.png';
+import watermelon from '../../assets/notFound/watermelon.png';
 import vector from '../../assets/notFound/Vector.png';
 
 export const NotFoundImg = styled.img`
@@ -23,14 +23,7 @@ export const Title = styled.h1`
 `;
 
 export const BgImg = styled.div`
-  /* position: absolute;
-  top: 0;
-  left: -20px;
-  z-index: -1;
-
-  width: 100vw;
-
-  height: 100%; */
+ 
 
   @media screen and (min-width: 768px) {
     position: fixed;
@@ -41,7 +34,7 @@ export const BgImg = styled.div`
     width: 100vw;
     height: 500px;
 
-    background-image: url(${smile}), url(${vector});
+    background-image: url(${watermelon}), url(${vector});
     background-repeat: no-repeat;
     background-position: right bottom;
     background-size: contain;
@@ -52,6 +45,6 @@ export const BgImg = styled.div`
     width: calc(100vw - (((100vw - 1280px) / 2) + 763px));
     height: 100vh;
 
-    background-image: url(${smile}), url(${vector});
+    background-image: url(${watermelon}), url(${vector});
   }
 `;
