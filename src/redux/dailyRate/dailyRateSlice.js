@@ -112,7 +112,7 @@ export const dailyRateSlice = createSlice({
 });
 
 const persistConfig = {
-  key: 'watermelon/slimMom/dailyRate',
+  key: 'dietdiet/slimMom/dailyRate',
   storage,
   whitelist: ['dailyRate', 'notAllowedProducts'],
 };

@@ -13,7 +13,7 @@ import authOperations from "../../redux/auth/authOperations";
 import {customColors} from "../../theme/colors";
 import {BgImg} from "./LogIn.styled";
 import * as Yup from 'yup';
-import {noop} from "../../utils/noop";
+import {noop} from "../../components/utils/noop";
 import {authSelectors} from "../../redux/auth/authSelectors";
 import DiaryFormValidation from "../../components/DiaryAddProductForm/DiaryFormValidation/DiaryFormValidation";
 

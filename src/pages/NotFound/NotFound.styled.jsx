@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import watermelon from '../../assets/notFound/watermelon.png';
+import dietdiet from '../../assets/notFound/dietdiet.png';
 import vector from '../../assets/notFound/Vector.png';
 
 export const NotFoundImg = styled.img`
@@ -41,7 +41,7 @@ export const BgImg = styled.div`
     width: 100vw;
     height: 500px;
 
-    background-image: url(${watermelon}), url(${vector});
+    background-image: url(${dietdiet}), url(${vector});
     background-repeat: no-repeat;
     background-position: right bottom;
     background-size: contain;
@@ -52,6 +52,6 @@ export const BgImg = styled.div`
     width: calc(100vw - (((100vw - 1280px) / 2) + 763px));
     height: 100vh;
 
-    background-image: url(${watermelon}), url(${vector});
+    background-image: url(${dietdiet}), url(${vector});
   }
 `;
