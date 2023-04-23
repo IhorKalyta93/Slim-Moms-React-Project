@@ -14,7 +14,7 @@ import {BgImg} from "./Registration.styled";
 import {customColors} from "../../theme/colors";
 import * as Yup from "yup";
 import {authSelectors} from "../../redux/auth/authSelectors";
-import {noop} from "../../components/utils/noop";
+import {noop} from "../../utils/noop";
 import DiaryFormValidation from "../../components/DiaryAddProductForm/DiaryFormValidation/DiaryFormValidation";
 
 const validationSchema = Yup.object().shape({
