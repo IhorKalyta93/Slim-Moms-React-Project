@@ -32,7 +32,7 @@ export const dailyRate = createAsyncThunk(
   }
 );
 
-// Get User Info
+
 export const userInfo = createAsyncThunk(
   'UserInfo/fetchData',
   async (_, thunkAPI) => {

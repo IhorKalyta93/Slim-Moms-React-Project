@@ -74,7 +74,6 @@ export const RadioLabel = styled.label`
 `;
 
 export const RadioInput = styled.input`
-  /* display: none; */
   position: absolute;
   width: 0px;
   height: 0px;

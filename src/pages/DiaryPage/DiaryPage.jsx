@@ -20,7 +20,7 @@ import { authSelectors } from 'redux/auth/authSelectors';
 import { getInfoForDay } from 'redux/products/productsOperations';
 
 export default function DiaryPage() {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();

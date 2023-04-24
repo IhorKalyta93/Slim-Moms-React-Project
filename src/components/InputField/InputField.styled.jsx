@@ -45,7 +45,7 @@ export const Input = styled.input`
   bottom: 0;
 
   width: 100%;
-  /* padding-bottom: 0px; */
+ 
 
   letter-spacing: 0.04em;
 

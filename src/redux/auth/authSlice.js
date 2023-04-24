@@ -114,7 +114,7 @@ export const authSlice = createSlice({
 const persistConfig = {
   key: 'smile/slimMom',
   storage,
-  // whitelist: ['token'],
+
   blacklist: ['loading'],
 };
 

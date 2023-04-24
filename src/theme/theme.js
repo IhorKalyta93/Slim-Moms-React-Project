@@ -1,6 +1,5 @@
 import { theme, extendTheme } from '@chakra-ui/react';
-// import "@fontsource/noto-sans/400.css"
-// import "@fontsource/noto-sans/700.css"
+
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
 import { Button } from './components/Button';
@@ -21,9 +20,9 @@ export const customTheme = extendTheme({
   config,
   breakpoints,
   fonts: {
-    body: `'Verdana', sans-serif`, // look like Verdana
-    primary: `'Verdana', sans-serif`, // look like Verdana
-    secondary: `'Montserrat', sans-serif`, // look like Gotham Pro
+    body: `'Verdana', sans-serif`, 
+    primary: `'Verdana', sans-serif`, 
+    secondary: `'Montserrat', sans-serif`, 
   },
   colors: {
     ...theme.colors,

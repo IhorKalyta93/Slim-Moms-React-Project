@@ -12,7 +12,7 @@ import { getDataUser } from 'redux/dailyRate/dailyRateSlice';
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  // Modal window
+
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -22,7 +22,7 @@ const HomePage = () => {
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Form
+
   const [heightUser, setHeightUser] = useState(null);
   const [ageUser, setAgeUser] = useState(null);
   const [currentWeightUser, setCurrentWeightUser] = useState(null);
@@ -75,11 +75,11 @@ const HomePage = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Validation inputs
+
     setShowValidationInput(true);
     setBlurOnInput(true);
 
-    // Validation form
+
     setRenderAlert(false);
     const isEmptyField = Object.values(dataUser).some(
       item => item === 0 || item === null
@@ -105,7 +105,7 @@ const HomePage = () => {
       return;
     }
 
-    // Submit
+
     dispatch(getDataUser(dataUser));
     dispatch(dailyRate(dataUser));
     setOverlay(<OverlayOne />);

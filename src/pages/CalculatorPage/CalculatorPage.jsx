@@ -14,7 +14,7 @@ export default function CalculatorPage() {
   const userId = useSelector(authSelectors.userId);
   const dispatch = useDispatch();
 
-  // Form
+ 
   const [heightUser, setHeightUser] = useState(null);
   const [ageUser, setAgeUser] = useState(null);
   const [currentWeightUser, setCurrentWeightUser] = useState(null);
@@ -63,11 +63,11 @@ export default function CalculatorPage() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Validation inputs
+
     setShowValidationInput(true);
     setBlurOnInput(true);
 
-    // Validation form
+ 
     setRenderAlert(false);
     const isEmptyField = Object.values(dataUser).some(
       item => item === 0 || item === null
@@ -94,7 +94,7 @@ export default function CalculatorPage() {
       return;
     }
 
-    // Submit
+
     dispatch(getDataUser(dataUser));
     const fetchObj = { userId, dataUser };
     dispatch(dailyRateById(fetchObj));

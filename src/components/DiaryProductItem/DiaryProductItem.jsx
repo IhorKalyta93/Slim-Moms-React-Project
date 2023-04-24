@@ -2,7 +2,6 @@ import React from 'react';
 import { Text } from '@chakra-ui/react';
 import { Item } from './DiaryProductItem.styled';
 
-// VscChromeClose
 
 export default function DiaryProductItem({ product, grams, kcal, children }) {
   return (

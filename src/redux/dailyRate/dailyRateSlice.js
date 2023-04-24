@@ -42,7 +42,7 @@ export const dailyRateSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    // Without id user
+  
     builder
       .addCase(dailyRate.pending, handlePending)
       .addCase(dailyRate.fulfilled, (state, { payload }) => {
@@ -52,7 +52,7 @@ export const dailyRateSlice = createSlice({
       })
       .addCase(dailyRate.rejected, handleRejected);
 
-    // With id user
+  
     builder
       .addCase(dailyRateById.pending, handlePending)
       .addCase(dailyRateById.fulfilled, (state, { payload }) => {
@@ -63,17 +63,17 @@ export const dailyRateSlice = createSlice({
       })
       .addCase(dailyRateById.rejected, handleRejected);
 
-    // get info for day
+    
     builder.addCase(getInfoForDay.fulfilled, (state, { payload }) => {
-      // If response with date
+      
       if (
         payload.daySummary &&
         !state.summaries.some(item => item.date === payload.daySummary.date)
       ) {
-        // add new info for day
+        
         state.summaries.push(payload.daySummary);
       } else {
-        // replace info for day
+        
         state.summaries = state.summaries.map(item => {
           if (item?.date === payload?.daySummary?.date) {
             return payload.daySummary;
@@ -82,12 +82,12 @@ export const dailyRateSlice = createSlice({
         });
       }
 
-      // If response without date
+   
       if (!payload.daySummary) {
         const newPayload = { date: state.currentDate, ...payload };
 
         if (!state.summaries.some(item => item.date === newPayload.date)) {
-          // add new info for day
+       
           state.summaries.push(newPayload);
         } else {
           // replace info for day
@@ -101,7 +101,7 @@ export const dailyRateSlice = createSlice({
       }
     });
 
-    // Get user Info
+  
     builder
       .addCase(userInfo.pending, handlePending)
       .addCase(userInfo.fulfilled, (state, { payload }) => {

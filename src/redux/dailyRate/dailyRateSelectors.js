@@ -1,4 +1,4 @@
-// Daily Rate
+
 export const getDailyRate = state => state.dailyRate.dailyRate;
 export const getDataUser = state => state.dailyRate.dataUser;
 export const getNotAllowedProducts = state =>

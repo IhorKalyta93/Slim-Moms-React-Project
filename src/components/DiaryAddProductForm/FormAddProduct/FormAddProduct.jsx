@@ -45,7 +45,6 @@ export default function FormAddProduct({
   const handleProductItemClick = e => {
     const { textContent } = e.target;
     setProduct(textContent);
-    // dispatch(selectProduct(textContent));
     setIsSelectOpen(false);
   };
 
@@ -55,7 +54,6 @@ export default function FormAddProduct({
       setProduct(value);
       setProductInputDirty(false);
       setSubmitError(false);
-      // dispatch(selectProduct(value));
     }
 
     if (name === 'product' && value === '') {
@@ -83,13 +81,6 @@ export default function FormAddProduct({
     setGramsInputDirty(false);
   };
 
-  // const handleInputClick = () => {
-  //   setIsSelectOpen(true);
-
-  //   if(product === '') {
-  //     setIsSelectOpen(false)
-  //   }
-  // };
 
   const handleFromSubmit = e => {
     e.preventDefault();
@@ -131,7 +122,7 @@ export default function FormAddProduct({
             name="product"
             value={product}
             onBlur={handleInputBlur}
-            // onClick={handleInputClick}
+       
           />
           {productInputDirty && (
             <DiaryFormValidation text="*Please, enter the product name" />

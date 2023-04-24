@@ -19,7 +19,7 @@ const register = createAsyncThunk(
         return data;
       }
 
-      // Check if user already submit form
+    
       const dataUser = thunkAPI.getState().dailyRate.dataUser;
       const userID = data.user.id;
       if (thunkAPI.getState().dailyRate.dataUser) {
