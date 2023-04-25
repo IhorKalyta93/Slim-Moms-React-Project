@@ -2,7 +2,7 @@
   "name": "slim_moms_react_project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ihorkalyta93.github.io/Slim-Moms-React-Project/",
+  "homepage": "https://ihorkalyta93.github.io/Slim-Moms-React-Project",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "^2.4.1",
