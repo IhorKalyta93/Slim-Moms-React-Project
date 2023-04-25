@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 
-import AddButton from 'components/Button/AddButton';
+import AddButton from '../Button/AddButton';
 import FormAddProduct from './FormAddProduct/FormAddProduct';
 
 export default function DiaryAddProductForm() {
