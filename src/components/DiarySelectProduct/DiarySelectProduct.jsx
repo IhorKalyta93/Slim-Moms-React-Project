@@ -6,7 +6,7 @@ export default function DiarySelectProduct({ data, onClick }) {
       {data.map(product => {
         return (
           <li className={css.item} key={product._id} onClick={onClick}>
-            {product.title.ru}
+            {product.title.ua}
           </li>
         );
       })}
