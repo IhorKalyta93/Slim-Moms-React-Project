@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/Slim-Moms-React-Project/static/css/main.bbc99dae.css",
-    "main.js": "/Slim-Moms-React-Project/static/js/main.8c57843b.js",
+    "main.js": "/Slim-Moms-React-Project/static/js/main.cec9b397.js",
     "static/css/992.947cd511.chunk.css": "/Slim-Moms-React-Project/static/css/992.947cd511.chunk.css",
-    "static/js/992.3700a21d.chunk.js": "/Slim-Moms-React-Project/static/js/992.3700a21d.chunk.js",
+    "static/js/992.b008ea67.chunk.js": "/Slim-Moms-React-Project/static/js/992.b008ea67.chunk.js",
     "static/js/534.ffa21205.chunk.js": "/Slim-Moms-React-Project/static/js/534.ffa21205.chunk.js",
     "static/css/223.2dd2e85c.chunk.css": "/Slim-Moms-React-Project/static/css/223.2dd2e85c.chunk.css",
     "static/js/223.71137404.chunk.js": "/Slim-Moms-React-Project/static/js/223.71137404.chunk.js",
@@ -37,9 +37,9 @@
     "static/media/montserrat-vietnamese-400-normal.woff2": "/Slim-Moms-React-Project/static/media/montserrat-vietnamese-400-normal.8f3f4c99eb0eeb5990f1.woff2",
     "index.html": "/Slim-Moms-React-Project/index.html",
     "main.bbc99dae.css.map": "/Slim-Moms-React-Project/static/css/main.bbc99dae.css.map",
-    "main.8c57843b.js.map": "/Slim-Moms-React-Project/static/js/main.8c57843b.js.map",
+    "main.cec9b397.js.map": "/Slim-Moms-React-Project/static/js/main.cec9b397.js.map",
     "992.947cd511.chunk.css.map": "/Slim-Moms-React-Project/static/css/992.947cd511.chunk.css.map",
-    "992.3700a21d.chunk.js.map": "/Slim-Moms-React-Project/static/js/992.3700a21d.chunk.js.map",
+    "992.b008ea67.chunk.js.map": "/Slim-Moms-React-Project/static/js/992.b008ea67.chunk.js.map",
     "534.ffa21205.chunk.js.map": "/Slim-Moms-React-Project/static/js/534.ffa21205.chunk.js.map",
     "223.2dd2e85c.chunk.css.map": "/Slim-Moms-React-Project/static/css/223.2dd2e85c.chunk.css.map",
     "223.71137404.chunk.js.map": "/Slim-Moms-React-Project/static/js/223.71137404.chunk.js.map",
@@ -53,6 +53,6 @@
   },
   "entrypoints": [
     "static/css/main.bbc99dae.css",
-    "static/js/main.8c57843b.js"
+    "static/js/main.cec9b397.js"
   ]
 }
